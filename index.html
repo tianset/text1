@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+            background-color: #fff;
+        }
+        .box{
+            width: 800px;
+            height: 240px;
+            margin: 0 auto;
+            margin-top: 100px;
+            clear: both;
+        }
+        #btn{
+            width: 300px;
+            height: 80px;
+            margin-left: 600px;
+            margin-top: 50px;
+			font-size: 36px;
+        }
+        .name{
+            width: 240px;
+            height: 80px;
+            float: left;
+            background-color: antiquewhite;
+            margin-left: 10px;
+            margin-top: 20px;
+            text-align: center;
+            line-height: 80px;
+			font-size: 36px;
+        }
+        #span{
+            float: right;
+            position: relative;
+            top: 55px;
+            right: 185px;
+        }
+        h1{
+            text-align: center;
+        }
+    </style>
+
+</head>
+<body>
+<h1>随机抽取体测项目</h1>
+<span id="span"></span>
+<div class="box" id="box"></div>
+<input type="button" id="btn" value="抽取"/>
+<script type="text/javascript">
+    //创造虚拟后台数据
+    var arrs = ["俯卧撑15","单杠10个","俯卧撑20","深蹲20","蛙跳2","单杠15个","蛙跳3","单杠20个","深蹲30","俯卧撑30","深蹲40","蛙跳1"];
+     //获取父元素
+    var boxNode = document.getElementById("box");
+    for (var i = 0; i < arrs.length; i++) {
+        //创建新元素
+        var divNode = document.createElement("div");
+        divNode.innerHTML=arrs[i];
+        divNode.className="name";
+        boxNode.appendChild(divNode);
+    }
+    //点名
+	var timeId;
+    var btn= document.getElementById("btn");
+    btn.onclick = function () {
+        if(this.value==="抽取"){
+                //定时
+            timeId=setInterval(function () {
+                    //清空所有颜色
+                for (var j = 0; j < arrs.length; j++) {
+                    boxNode.children[j].style.background="";
+                }
+                //留下当前颜色
+                var random = parseInt(Math.random()*arrs.length);
+                boxNode.children[random].style.background="red";
+            },50);
+            this.value="停止";
+        }else{
+            //清除计时器
+            clearInterval(timeId);
+            this.value="抽取";
+        }
+    }
+    var spanNode = document.getElementById("span");
+   
+</script>
+</body>
+</html>
